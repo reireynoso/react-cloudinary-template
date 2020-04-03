@@ -1,26 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ItemsContainer from './components/ItemsContainer'
+import NewItemForm from './components/NewItemForm'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    photos: []
+  }
+
+  componentDidMount(){
+    fetch(`https://photo-uploader-node.herokuapp.com/photos`)
+    .then(res => res.json())
+    .then(data => {
+      this.setState(() => {
+          return {
+            photos: data
+          }
+      })
+    })
+  }
+
+  render(){
+    return (
+      <div className="App">
+        <NewItemForm/>
+        <ItemsContainer photos={this.state.photos}/>
+      </div>
+    )
+  }
 }
 
 export default App;
