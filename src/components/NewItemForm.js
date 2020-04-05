@@ -3,8 +3,8 @@ import React from 'react'
 export default class NewItemForm extends React.Component {
 
     state = {
-        image: "",
-        video: ""
+        image: {},
+        video: {}
     }
 
     onChange = (e) => {
